@@ -60,5 +60,5 @@ mvn site   # 站点信息，此命令很少使用
 
     ```
   - 特殊标签中的关系
-   -  dependencyManagement中定义的依赖子module不会共享
-   -  dependencies中定义的依赖子module可以共享
+    -  dependencyManagement中定义的依赖子module不会共享
+    -  dependencies中定义的依赖子module可以共享
