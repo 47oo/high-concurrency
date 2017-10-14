@@ -62,3 +62,10 @@ mvn site   # 站点信息，此命令很少使用
   - 特殊标签中的关系
     -  dependencyManagement中定义的依赖子module不会共享
     -  dependencies中定义的依赖子module可以共享
+-----------------
+
+## maven更新遇到错误的时候处理方案
+    was cached in the local repository, resolution will not
+    be reattempted until the update interval of nexus has
+    elapsed or updates are forced
+***去自己的.m2 文件夹下把 xxx.lastUpdated文件全部删掉，重新运行maven，ok！***
