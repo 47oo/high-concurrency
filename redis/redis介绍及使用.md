@@ -37,7 +37,7 @@ Key-value数据库是一种以键值对存储数据的一种数据库，类似ja
   ```
   5. 安装错误的话一般是缺少依赖或者版本不对应的原因，再次不多赘述，网上有很多资料支持
 
-  6. 安装完成后，应该会看到以下命令
+  6. 安装完成后，应该会看到以下命令（此处就是可以指定命令安装的位置）
   ![redis-bin](../images/redis-bin.jpg)
 
   7. 使用以下命令可以测试redis是否安装成功
@@ -47,3 +47,26 @@ Key-value数据库是一种以键值对存储数据的一种数据库，类似ja
   ![redis-v](../images/redis-v.jpg)
 
 ## redis 使用(单机模式)
+  1. redis读取的是[redis.conf](../files/redis.conf)作为初始化信息
+  2. 当启动redis的时候，使用bin目录下面的
+  ```shell
+  ./redis-server redis.conf # 后面不加参数的话，则使用默认的参数，简体添加参数
+  ```
+  3. 默认启动的时候，使用的前台模式，即运行在前台，如果想运行在后台，请修改配置文件redis.conf的参数如下：
+  ![redis-daemon](../images/redis-daemon.jpg)
+  4. 通过客户端登录
+  ```shell
+  ./redis-cli #活人就是hist：127.0.0.1 post：6379
+  redis> ping
+  PONG
+  redis> set foo bar
+  OK
+  redis> get foo
+  "bar"
+  redis> incr mycounter
+  (integer) 1
+  redis> incr mycounter
+  (integer) 2
+  redis>
+  ```
+  你可以在这个网址查看更多命令操作： http://redis.io/commands.
