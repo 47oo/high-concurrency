@@ -23,6 +23,7 @@
   1. 进入maven的conf目录下
 
   ![maven自己的目录](../images/maven-dir.jpg)
+
   2. 修改settings.xml文件，添加内容如下,在此，我提供settings的配置文件 [settings.xml](../files/settings.xml)
 
 ```xml
@@ -34,7 +35,7 @@
    <url>http://maven.aliyun.com/nexus/content/groups/public</url>
 </mirror>
 
-<profile>
+    <profile>
 		 <id>nexus</id>
 		 <!--所有请求均通过镜像 -->
 		 <repositories>
