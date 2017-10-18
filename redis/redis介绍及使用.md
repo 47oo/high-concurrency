@@ -70,3 +70,57 @@ Key-value数据库是一种以键值对存储数据的一种数据库，类似ja
   redis>
   ```
   你可以在这个网址查看更多命令操作： http://redis.io/commands.
+
+## redis 发布订阅
+  1. redis发布订阅（pub/sub）是一种消息通信模式：发送者发送消息，订阅者接收消息
+  ![发布订阅](../images/redis-ps.jpg)
+
+  单机模式下例子如下：
+  ```shell
+  # 第一个窗口
+  ./redis-cli
+  redis> subscribe title # 订阅的主题
+
+  # 第二个窗口
+  ./redis-cli
+  redis> publish title message # 发送消息给订阅者
+  ```
+
+## redis 事务
+  1. redis事务可以一次执行多个命令，并且带有以下两个重要保证：
+    - 事务是一个单独的隔离操作：事务中的所有命令都会序列化、按顺序地执行。事务在执行的过程中，不会被其他客户端发送来的命令请求所打断。
+    - 事务是一个原子操作：事务中的命令要么全部被执行，要么全部都不执行。
+
+  2. 一个事务从开始到执行会经历以下三个阶段：
+    - 开始事务。
+    - 命令入队。
+    - 执行事务。
+
+    例子如下所示：
+
+    ![redis-transaction](../images/redis-transaction.jpg)
+
+## redis数据进行备份和恢复
+  > 默认情况下 每隔一段时间redis服务器程序会自动对数据库做一次遍历，把内存快照写在一个叫做“dump.rdb”的文件里，这个持久化机制叫做SNAPSHOT。有了SNAPSHOT后，如果服务器宕机，重新启动redis服务器程序时redis会自动加载dump.rdb，将数据库状态恢复到上一次做SNAPSHOT时的状态。
+
+  > 手动进行内存备份：Save
+
+  ![redis-save](../images/redis-save.jpg)
+
+## redis 安全
+
+```shell
+redis> config get requirepass # get password
+redis> config set requirepass 111 # set password
+redis> auth 111 # auth password
+```
+
+## redis 主从模式配置
+  1. 将编译好的redis放入另一台服务器中，请将redis.conf一起带过去。
+  2. 修改[redis.conf](../files/redis.conf)文件
+  ```shell
+  bind 127.0.0.1 # 修改为本机的ip地址
+  slaveof masterip masterport # 在slave节点上修改
+  # 启动时请使用
+  ./redis-server redis.conf
+  ```
