@@ -69,5 +69,29 @@
   > 修改策略同zlib
 
   ```shell
-  gem install redis # 现在就好了，想哭
+  gem install redis --version 4.0.0 # 现在就好了，想哭
   ```
+
+##  redis 集群搭建
+
+  1. 首先可以使用单台服务器做为集群，多台服务器可以集群
+  2. 管理集群的节点必须要有ruby环境和redis相应的api
+  3. 复制可执行文件redis的（就是编译好的文件）到其他服务器上，总之，是至少需要6个redis服务的，并且是分为3组主从结构
+  4. 修改redis.conf配置文件
+  ```shell
+  port 7000
+  bind 192.168.0.108 # 当前主机对外的ip地址
+  cluster-enabled yes
+  cluster-config-file nodes.conf # 这里使用全路径，不然在模拟的时候使用脚本开始会导致nodes.con重叠，导致redis开启失败
+  cluster-node-timeout 5000
+  appendonly yes
+  daemonize    yes
+  ```
+  5. 启动redis，每个都要起噢
+  6. 启动集群（第一次启动这个集群需要的操作）
+  ```shell
+/opt/redis/redis-trib.rb  create --replicas 1 192.168.0.108:7000 192.168.0.110:7000 192.168.0.111:7000 192.168.0.108:8000 192.168.0.110:8000 192.168.0.111:8000
+# 其中 replicas 后面的数字表示主从模式下从节点的个数
+  ./redis-cli -h 192.168.0.108 -p 7000 -c # 进入集群
+  ```
+  7. 第二次启动集群的时候，直接启动这些节点即可
