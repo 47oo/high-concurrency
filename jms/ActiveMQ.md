@@ -11,3 +11,10 @@
   ```shell
   ./activemq start # 即可执行
   ```
+  6. 默认端口为61616，后台可视化界面端口为8161
+
+## activemq的java-api接口使用
+
+  1. [Custmer](../files/Custmer.java)
+  2. [Produce](../files/Produce.java)
+  3. [pom.xml](../files/activemq-pom.xml)
